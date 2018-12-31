@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
-	"github.com/xoreo/learning/blockchain/common"
+	"github.com/xoreo/go-basics/blockchain/common"
 )
 
 // WriteTransactionToMemory - Write a transaction to memory

@@ -1,6 +1,6 @@
 package main
 
-import "github.com/xoreo/learning/structs/types"
+import "github.com/xoreo/go-basics/structs/types"
 
 func main() {
 	myFroggy, err := types.NewFrog(

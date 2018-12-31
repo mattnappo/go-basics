@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/xoreo/learning/testpkg"
+	"github.com/xoreo/go-basics/testpkg"
 )
 
 func main() {

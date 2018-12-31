@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
-	"github.com/xoreo/learning/blockchain/common"
+	"github.com/xoreo/go-basics/blockchain/common"
 )
 
 // WriteBlockToMemory - Write a block to memory
@@ -21,7 +21,7 @@ func (block *Block) WriteBlockToMemory() error {
 		return err
 	}
 
-	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/blocks/block%s.json", block.Hash[:8])), json, 0644)
+	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/blocks/block%s.json", string(block.Hash[:8]))), json, 0644)
 	if err != nil {
 		return err
 	}

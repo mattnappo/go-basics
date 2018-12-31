@@ -22,6 +22,7 @@ func NewBlockchain(genesis *Block) (*Blockchain, error) {
 	return &Blockchain{
 		Blocks: []*Block{genesis},
 	}, nil
+	
 }
 
 // AddBlock - Add a block to a blockchain
@@ -29,7 +30,7 @@ func (blockchain *Blockchain) AddBlock(block *Block) error {
 	if block == nil {
 		return ErrNilBlock
 	}
-
+	
 	blockchain.Blocks = append(blockchain.Blocks, block)
 	return nil
 }

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/xoreo/learning/blockchain/common"
+	"github.com/xoreo/go-basics/blockchain/common"
 )
 
 // ErrInvalidBlock - Error for an attempt to create a new block with invalid parameters

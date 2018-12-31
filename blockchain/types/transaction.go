@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/xoreo/learning/blockchain/common"
+	"github.com/xoreo/go-basics/blockchain/common"
 )
 
 // ErrInvalidTransaction - Error for an attempt to create a new transaction with invalid parameters
