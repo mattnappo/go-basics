@@ -16,7 +16,7 @@ var ErrInvalidBlockchain = errors.New("invalid parameters to construct blockchai
 var ErrValidateIndex = errors.New("validation error - invalid block indexes")
 
 // ErrValidatePrevHash - Validation error for when the two blocks' hashes don't match up
-var ErrValidatePrevHash = errors.New("validation error - invalid block hashes")
+var ErrValidatePrevHash = errors.New("validation error - hash in block does not match previous block")
 
 // ErrValidateCalcHash - Validation error for when the two blocks' hashes don't match up
 var ErrValidateCalcHash = errors.New("validation error - hash in block is not equal to hash of block")
@@ -73,10 +73,17 @@ func Validate(thisBlock *block.Block, prevBlock *block.Block) error {
 		return ErrValidatePrevHash
 	}
 
-	hashInBlock := fmt.Sprintf("%x", (*thisBlock).Hash)
+	hashInBlock := fmt.Sprintf("%x", thisBlock.Hash)
 	thisBlock.Hash = nil
-	hashOfBlock := fmt.Sprintf("%x", common.Sha3((*thisBlock).Bytes()))
+
+	fmt.Println(thisBlock.String())
+
+	hashOfBlock := fmt.Sprintf("%x", common.Sha3(thisBlock.Bytes()))
+
+	fmt.Println(hashInBlock)
+	fmt.Println(hashOfBlock)
 	if hashInBlock != hashOfBlock {
+
 		return ErrValidateCalcHash
 	}
 

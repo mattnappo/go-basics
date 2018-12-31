@@ -88,6 +88,10 @@ func PopulateChain() (*Blockchain, error) {
 		chain.AddBlock(newBlock)
 		currentBlock = newBlock
 	}
-
+	chain.WriteBlockchainToMemory()
+	err = chain.ValidateChain()
+	if err != nil {
+		return nil, err
+	}
 	return chain, nil
 }
