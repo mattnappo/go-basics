@@ -3,6 +3,8 @@ package types
 import (
 	"encoding/json"
 	"errors"
+
+	"github.com/xoreo/learning/blockchain/common"
 )
 
 // ErrInvalidTransaction - Error for an attempt to create a new transaction with invalid parameters
@@ -22,12 +24,14 @@ func NewTransaction(sender string, recipient string, amount float64) (*Transacti
 		return nil, ErrInvalidTransaction
 	}
 
-	return &Transaction{
+	transaction := &Transaction{
 		sender,
 		recipient,
 		amount,
 		nil,
-	}, nil
+	}
+	(*transaction).Hash = common.Sha3(transaction.Bytes())
+	return transaction, nil
 }
 
 // String - Encode a transaction into a string
