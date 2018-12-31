@@ -1,4 +1,4 @@
-package types
+package block
 
 import (
 	"encoding/json"
@@ -16,12 +16,13 @@ func (block *Block) WriteBlockToMemory() error {
 		return err
 	}
 
-	err = common.CreateDirIfDoesNotExist("data/blocks")
+	err = common.CreateDirIfDoesNotExist("../data/blocks")
 	if err != nil {
 		return err
 	}
 
-	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/blocks/block_%s.json", fmt.Sprintf("%x", block.Hash[:8]))), json, 0644)
+	hex_hash := fmt.Sprintf("%x", block.Hash[:8])
+	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("../data/blocks/block_%s.json", hex_hash)), json, 0644)
 	if err != nil {
 		return err
 	}
@@ -31,13 +32,13 @@ func (block *Block) WriteBlockToMemory() error {
 
 // ReadBlockFromMemory - Read a block from memory
 func ReadBlockFromMemory(hash string) (*Block, error) {
-	data, err := ioutil.ReadFile(fmt.Sprintf("data/blocks/block_%s.json", hash))
+	data, err := ioutil.ReadFile(fmt.Sprintf("../data/blocks/block_%s.json", hash))
 	if err != nil {
 		return nil, err
 	}
 	buffer := &Block{}
 	err = json.Unmarshal(data, buffer)
-	buffer.Timestamp = data.Timestamp
+	// buffer.Timestamp = data.Timestamp
 	if err != nil {
 		return nil, err
 	}

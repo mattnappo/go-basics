@@ -1,4 +1,9 @@
-package types
+package block
+
+import (
+	"fmt"
+	"testing"
+)
 
 func TestWriteBlockToMemory(t *testing.T) {
 	tx1, err := NewTransaction(
@@ -53,7 +58,6 @@ func TestReadBlockFromMemory(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// t.Log(fmt.Sprintf("here: %s\n", ))
 	block, err = ReadBlockFromMemory(fmt.Sprintf("%x", block.Hash[:8]))
 	if err != nil {
 		t.Fatal(err)

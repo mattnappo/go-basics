@@ -1,4 +1,4 @@
-package types
+package transaction
 
 import (
 	"encoding/json"
@@ -16,12 +16,12 @@ func (transaction *Transaction) WriteTransactionToMemory() error {
 		return err
 	}
 
-	err = common.CreateDirIfDoesNotExist("data/transactions")
+	err = common.CreateDirIfDoesNotExist("../data/transactions")
 	if err != nil {
 		return err
 	}
 
-	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/transactions/transaction_%s.json", transaction.Hash)), json, 0644)
+	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("../data/transactions/transaction_%s.json", transaction.Hash)), json, 0644)
 	if err != nil {
 		return err
 	}
@@ -30,7 +30,7 @@ func (transaction *Transaction) WriteTransactionToMemory() error {
 
 // ReadTransactionFromMemory - Read a transaction from memory
 func ReadTransactionFromMemory(hash string) (*Transaction, error) {
-	data, err := ioutil.ReadFile(fmt.Sprintf("data/transactions/transaction_%s.json", hash))
+	data, err := ioutil.ReadFile(fmt.Sprintf("../data/transactions/transaction_%s.json", hash))
 	if err != nil {
 		return nil, err
 	}

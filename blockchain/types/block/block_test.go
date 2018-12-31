@@ -1,8 +1,9 @@
-package types
+package block
 
 import (
-	"fmt"
 	"testing"
+	
+	"github.com/xoreo/go-basics/types/transaction"
 )
 
 func TestNewBlock(t *testing.T) {
