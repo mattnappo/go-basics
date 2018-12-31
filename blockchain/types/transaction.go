@@ -25,10 +25,10 @@ func NewTransaction(sender string, recipient string, amount float64) (*Transacti
 	}
 
 	transaction := &Transaction{
-		sender,
-		recipient,
-		amount,
-		nil,
+		Sender:    sender,
+		Recipient: recipient,
+		Amount:    amount,
+		Hash:      nil,
 	}
 	(*transaction).Hash = common.Sha3(transaction.Bytes())
 	return transaction, nil

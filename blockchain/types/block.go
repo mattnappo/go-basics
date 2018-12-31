@@ -26,11 +26,11 @@ func NewBlock(index int, transactions []*Transaction, prevHash []byte) (*Block, 
 		return nil, ErrInvalidBlock
 	}
 	block := &Block{
-		index,
-		transactions,
-		prevHash,
-		time.Now().UTC().String(),
-		nil,
+		Index:        index,
+		Transactions: transactions,
+		PrevHash:     prevHash,
+		Timestamp:    time.Now().UTC().String(),
+		Hash:         nil,
 	}
 	(*block).Hash = common.Sha3(block.Bytes())
 	return block, nil
