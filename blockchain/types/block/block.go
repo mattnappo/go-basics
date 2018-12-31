@@ -3,6 +3,7 @@ package block
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/xoreo/go-basics/blockchain/common"
@@ -34,6 +35,8 @@ func NewBlock(index int, transactions []*transaction.Transaction, prevHash []byt
 		Hash:         nil,
 	}
 	(*block).Hash = common.Sha3(block.Bytes())
+	hex := fmt.Sprintf("%x", (*block).Hash)
+	fmt.Printf("HASH AT CALCULATION of block with index %d: %s\n\n", block.Index, string(hex))
 	return block, nil
 }
 

@@ -26,10 +26,11 @@ func createTransactions() []*transaction.Transaction {
 	return transactions
 }
 
+// newBlock - Create a nonsense block
 func newBlock() (*block.Block, error) {
 	// Get some (nonsense) transactions
 	txs := createTransactions()
-	// Create the genesis block
+	// Create the block
 	newBlock, err := block.NewBlock(
 		0,
 		txs,
@@ -41,7 +42,8 @@ func newBlock() (*block.Block, error) {
 	return newBlock, nil
 }
 
-func prevBlock(lastBlock block.Block) (*block.Block, error) {
+// PrevBlock - Return the new block based off of the old block
+func PrevBlock(lastBlock block.Block) (*block.Block, error) {
 	prevBlock, err := block.NewBlock(
 		lastBlock.Index+1,
 		createTransactions(),
@@ -79,7 +81,7 @@ func PopulateChain() (*Blockchain, error) {
 		if err != nil {
 			return nil, err
 		}
-		newBlock, err := prevBlock(*currentBlock)
+		newBlock, err := PrevBlock(*currentBlock)
 		if err != nil {
 			return nil, err
 		}

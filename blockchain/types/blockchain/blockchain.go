@@ -3,12 +3,23 @@ package blockchain
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 
+	"github.com/xoreo/go-basics/blockchain/common"
 	"github.com/xoreo/go-basics/blockchain/types/block"
 )
 
 // ErrInvalidBlockchain - Error for an attempt to create a new blockchain with invalid parameters
 var ErrInvalidBlockchain = errors.New("invalid parameters to construct blockchain")
+
+// ErrValidateIndex - Validation error for when the two blocks' indexes don't match up
+var ErrValidateIndex = errors.New("validation error - invalid block indexes")
+
+// ErrValidatePrevHash - Validation error for when the two blocks' hashes don't match up
+var ErrValidatePrevHash = errors.New("validation error - invalid block hashes")
+
+// ErrValidateCalcHash - Validation error for when the two blocks' hashes don't match up
+var ErrValidateCalcHash = errors.New("validation error - hash in block is not equal to hash of block")
 
 // ErrNilBlock - Error for a nil block
 var ErrNilBlock = errors.New("block is nil")
@@ -43,5 +54,36 @@ func (chain *Blockchain) AddBlock(block *block.Block) error {
 	}
 
 	chain.Blocks = append(chain.Blocks, block)
+	return nil
+}
+
+// Validate - Validate that a block (thisBlock) is valid
+func Validate(thisBlock *block.Block, prevBlock *block.Block) error {
+	if thisBlock.Index != prevBlock.Index+1 {
+		return ErrValidateIndex
+	}
+
+	if string(thisBlock.PrevHash) != string(prevBlock.Hash) {
+		return ErrValidatePrevHash
+	}
+
+	hashInBlock := fmt.Sprintf("%x", (*thisBlock).Hash)
+	hashOfBlock := fmt.Sprintf("%x", common.Sha3((*thisBlock).Bytes()))
+	fmt.Printf("hash in block with index %d: %s\nhash of block with index %d: %s\n\n", thisBlock.Index, string(hashInBlock), thisBlock.Index, string(hashOfBlock))
+	if hashInBlock != hashOfBlock {
+		return ErrValidateCalcHash
+	}
+
+	return nil
+}
+
+// ValidateChain - Validate that a chain is valid
+func (chain *Blockchain) ValidateChain() error {
+	for i := 1; i < len(chain.Blocks); i++ {
+		err := Validate(chain.Blocks[i], chain.Blocks[i-1])
+		if err != nil {
+			return err
+		}
+	}
 	return nil
 }

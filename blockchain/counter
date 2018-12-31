@@ -2,7 +2,9 @@ DIR_NAME_HERE = "."
 IGNORE = [
 "vendor",
 "Gopkg.lock",
-"Gopkg.toml"
+"Gopkg.toml",
+"*_test.go"
+
 ]
 LISENCE = 0
 import os
