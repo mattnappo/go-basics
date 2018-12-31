@@ -21,7 +21,7 @@ func (block *Block) WriteBlockToMemory() error {
 		return err
 	}
 
-	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/blocks/block%s.json", string(block.Hash[:8]))), json, 0644)
+	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/blocks/block_%s.json", fmt.Sprintf("%x", block.Hash[:8]))), json, 0644)
 	if err != nil {
 		return err
 	}
@@ -37,6 +37,7 @@ func ReadBlockFromMemory(hash string) (*Block, error) {
 	}
 	buffer := &Block{}
 	err = json.Unmarshal(data, buffer)
+	buffer.Timestamp = data.Timestamp
 	if err != nil {
 		return nil, err
 	}
