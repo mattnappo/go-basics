@@ -2,12 +2,12 @@ package block
 
 import (
 	"testing"
-	
-	"github.com/xoreo/go-basics/types/transaction"
+
+	"github.com/xoreo/go-basics/blockchain/types/transaction"
 )
 
 func TestNewBlock(t *testing.T) {
-	tx1, err := NewTransaction(
+	tx1, err := transaction.NewTransaction(
 		"dowland",
 		"matt",
 		10000000,
@@ -17,7 +17,7 @@ func TestNewBlock(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	transactions := []*Transaction{tx1, tx1}
+	transactions := []*transaction.Transaction{tx1, tx1}
 
 	block, err := NewBlock(
 		0,

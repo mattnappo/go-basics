@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/xoreo/go-basics/blockchain/common"
+	"github.com/xoreo/go-basics/blockchain/types/transaction"
 )
 
 // ErrInvalidBlock - Error for an attempt to create a new block with invalid parameters
@@ -13,15 +14,15 @@ var ErrInvalidBlock = errors.New("invalid parameters to construct block")
 
 // Block - A block in the chain
 type Block struct {
-	Index        int            `json:"Index"`
-	Transactions []*Transaction `json:"Transactions"`
-	PrevHash     []byte         `json:"PrevHash"`
-	Timestamp    string         `json:"Timestamp"`
-	Hash         []byte         `json:"Hash"`
+	Index        int                        `json:"Index"`
+	Transactions []*transaction.Transaction `json:"Transactions"`
+	PrevHash     []byte                     `json:"PrevHash"`
+	Timestamp    string                     `json:"Timestamp"`
+	Hash         []byte                     `json:"Hash"`
 }
 
 // NewBlock - Create a new block
-func NewBlock(index int, transactions []*Transaction, prevHash []byte) (*Block, error) {
+func NewBlock(index int, transactions []*transaction.Transaction, prevHash []byte) (*Block, error) {
 	if transactions == nil {
 		return nil, ErrInvalidBlock
 	}

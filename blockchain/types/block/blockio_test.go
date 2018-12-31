@@ -3,10 +3,12 @@ package block
 import (
 	"fmt"
 	"testing"
+
+	"github.com/xoreo/go-basics/blockchain/types/transaction"
 )
 
 func TestWriteBlockToMemory(t *testing.T) {
-	tx1, err := NewTransaction(
+	tx1, err := transaction.NewTransaction(
 		"dowland",
 		"matt",
 		10000000,
@@ -16,7 +18,7 @@ func TestWriteBlockToMemory(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	transactions := []*Transaction{tx1, tx1}
+	transactions := []*transaction.Transaction{tx1, tx1}
 
 	block, err := NewBlock(
 		0,
@@ -33,7 +35,7 @@ func TestWriteBlockToMemory(t *testing.T) {
 }
 
 func TestReadBlockFromMemory(t *testing.T) {
-	tx1, err := NewTransaction(
+	tx1, err := transaction.NewTransaction(
 		"dowland",
 		"matt",
 		10000000,
@@ -43,7 +45,7 @@ func TestReadBlockFromMemory(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	transactions := []*Transaction{tx1, tx1}
+	transactions := []*transaction.Transaction{tx1, tx1}
 
 	block, err := NewBlock(
 		0,
