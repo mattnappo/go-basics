@@ -6,7 +6,7 @@ import (
 )
 
 func TestWriteBlockchainToMemory(t *testing.T) {
-	chain, err := PopulateChain()
+	chain, err := PopulateChain(10)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -21,7 +21,7 @@ func TestWriteBlockchainToMemory(t *testing.T) {
 
 // func
 func TestReadBlockchainFromMemory(t *testing.T) {
-	chain, err := PopulateChain()
+	chain, err := PopulateChain(10)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -31,7 +31,7 @@ func TestReadBlockchainFromMemory(t *testing.T) {
 	}
 
 	genesis := chain.Blocks[0]
-	hexHash := fmt.Sprintf("%x", genesis.Hash[:8])
+	hexHash := fmt.Sprintf("%x", genesis.Hash)[:8]
 	chain, err = ReadBlockchainFromMemory(hexHash)
 	if err != nil {
 		t.Fatal(err)

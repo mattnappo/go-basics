@@ -22,7 +22,7 @@ func (chain *Blockchain) WriteBlockchainToMemory() error {
 	}
 
 	genesis := chain.Blocks[0]
-	hexHash := fmt.Sprintf("%x", genesis.Hash[:8])
+	hexHash := fmt.Sprintf("%x", genesis.Hash)[:8]
 	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/chains/chain_%s.json", hexHash)), json, 0644)
 	if err != nil {
 		return err

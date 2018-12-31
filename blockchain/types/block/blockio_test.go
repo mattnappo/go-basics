@@ -60,7 +60,7 @@ func TestReadBlockFromMemory(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	block, err = ReadBlockFromMemory(fmt.Sprintf("%x", block.Hash[:8]))
+	block, err = ReadBlockFromMemory(fmt.Sprintf("%x", block.Hash)[:8])
 	if err != nil {
 		t.Fatal(err)
 	}

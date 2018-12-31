@@ -21,7 +21,7 @@ func (block *Block) WriteBlockToMemory() error {
 		return err
 	}
 
-	hexHash := fmt.Sprintf("%x", block.Hash[:8])
+	hexHash := fmt.Sprintf("%x", block.Hash)[:8]
 	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/blocks/block_%s.json", hexHash)), json, 0644)
 	if err != nil {
 		return err

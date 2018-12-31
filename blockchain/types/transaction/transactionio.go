@@ -21,7 +21,7 @@ func (transaction *Transaction) WriteTransactionToMemory() error {
 		return err
 	}
 
-	hexHash := fmt.Sprintf("%x", transaction.Hash[:8])
+	hexHash := fmt.Sprintf("%x", transaction.Hash)[:8]
 	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/transactions/transaction_%s.json", hexHash)), json, 0644)
 	if err != nil {
 		return err

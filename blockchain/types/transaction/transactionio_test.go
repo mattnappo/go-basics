@@ -39,7 +39,7 @@ func TestReadTransactionFromMemory(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	hexHash := fmt.Sprintf("%x", tx.Hash[:8])
+	hexHash := fmt.Sprintf("%x", tx.Hash)[:8]
 	tx, err = ReadTransactionFromMemory(string(hexHash))
 	if err != nil {
 		t.Fatal(err)
