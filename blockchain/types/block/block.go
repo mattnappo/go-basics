@@ -14,11 +14,11 @@ var ErrInvalidBlock = errors.New("invalid parameters to construct block")
 
 // Block - A block in the chain
 type Block struct {
-	Index        int                        `json:"Index"`
-	Transactions []*transaction.Transaction `json:"Transactions"`
-	PrevHash     []byte                     `json:"PrevHash"`
-	Timestamp    string                     `json:"Timestamp"`
-	Hash         []byte                     `json:"Hash"`
+	Index        int                        `json:"index"`
+	Transactions []*transaction.Transaction `json:"transactions"`
+	PrevHash     []byte                     `json:"prevHash"`
+	Timestamp    string                     `json:"timestamp"`
+	Hash         []byte                     `json:"hash"`
 }
 
 // NewBlock - Create a new block

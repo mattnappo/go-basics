@@ -12,10 +12,10 @@ var ErrInvalidTransaction = errors.New("invalid parameters to construct transact
 
 // Transaction - A transaction in a block's list of transactions
 type Transaction struct {
-	Sender    string  `json:"Sender"`
-	Recipient string  `json:"Recipient"`
-	Amount    float64 `json:"Amount"`
-	Hash      []byte  `json:"Hash"`
+	Sender    string  `json:"sender"`
+	Recipient string  `json:"recipient"`
+	Amount    float64 `json:"amount"`
+	Hash      []byte  `json:"hash"`
 }
 
 // NewTransaction - Create a new transaction

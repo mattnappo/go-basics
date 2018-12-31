@@ -1,6 +1,7 @@
 package blockchain
 
 import (
+	"encoding/json"
 	"errors"
 
 	"github.com/xoreo/go-basics/blockchain/types/block"
@@ -14,7 +15,7 @@ var ErrNilBlock = errors.New("block is nil")
 
 // Blockchain - A blockchain
 type Blockchain struct {
-	Blocks []*block.Block `json:"Blocks"`
+	Blocks []*block.Block `json:"blocks"`
 }
 
 // NewBlockchain - Create a new blockchain from a genesis block
@@ -29,12 +30,18 @@ func NewBlockchain(genesis *block.Block) (*Blockchain, error) {
 
 }
 
+// String - Encode a chain as a string
+func (chain *Blockchain) String() string {
+	json, _ := json.MarshalIndent(chain, "", "  ")
+	return string(json)
+}
+
 // AddBlock - Add a block to a blockchain
-func (blockchain *Blockchain) AddBlock(block *block.Block) error {
+func (chain *Blockchain) AddBlock(block *block.Block) error {
 	if block == nil {
 		return ErrNilBlock
 	}
 
-	blockchain.Blocks = append(blockchain.Blocks, block)
+	chain.Blocks = append(chain.Blocks, block)
 	return nil
 }
