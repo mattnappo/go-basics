@@ -47,6 +47,12 @@ func (chain *Blockchain) String() string {
 	return string(json)
 }
 
+// Bytes - Encode a chain as a []byte
+func (chain *Blockchain) Bytes() []byte {
+	json, _ := json.MarshalIndent(chain, "", "  ")
+	return json
+}
+
 // AddBlock - Add a block to a blockchain
 func (chain *Blockchain) AddBlock(block *block.Block) error {
 	if block == nil {
@@ -68,8 +74,8 @@ func Validate(thisBlock *block.Block, prevBlock *block.Block) error {
 	}
 
 	hashInBlock := fmt.Sprintf("%x", (*thisBlock).Hash)
+	thisBlock.Hash = nil
 	hashOfBlock := fmt.Sprintf("%x", common.Sha3((*thisBlock).Bytes()))
-	fmt.Printf("hash in block with index %d: %s\nhash of block with index %d: %s\n\n", thisBlock.Index, string(hashInBlock), thisBlock.Index, string(hashOfBlock))
 	if hashInBlock != hashOfBlock {
 		return ErrValidateCalcHash
 	}
