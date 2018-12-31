@@ -4,9 +4,9 @@ package types
 type Block struct {
 	Index        int            `json:"Index"`
 	Transactions []*Transaction `json:"Transactions"`
-	PrevHash     string         `json:"PrevHash"`
+	PrevHash     []byte         `json:"PrevHash"`
 	Timestamp    string         `json:"Timestamp"`
-	Hash         string         `json:"Hash"`
+	Hash         []byte         `json:"Hash"`
 }
 
 // NewBlock - Create a new block
