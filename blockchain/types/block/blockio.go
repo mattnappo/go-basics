@@ -38,7 +38,6 @@ func ReadBlockFromMemory(hash string) (*Block, error) {
 	}
 	buffer := &Block{}
 	err = json.Unmarshal(data, buffer)
-	// buffer.Timestamp = data.Timestamp
 	if err != nil {
 		return nil, err
 	}

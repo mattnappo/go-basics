@@ -3,18 +3,22 @@ package main
 import (
 	"flag"
 	"fmt"
+
+	"github.com/xoreo/go-basics/blockchain/types/blockchain"
 )
 
 var (
-	populateFlag = flag.Bool("populateChain", false, "Populate a blockchain")
+	populateFlag = flag.Bool("populate", false, "Populate a blockchain")
 )
 
 func main() {
+	flag.Parse()
 	if *populateFlag {
-		chain, err := types.blockchain.PopulateChain()
+		fmt.Println("working test")
+		chain, err := blockchain.PopulateChain()
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(chain.String())
+		fmt.Println(chain.WriteBlockchainToMemory())
 	}
 }
