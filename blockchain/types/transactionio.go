@@ -18,7 +18,7 @@ func (transaction *Transaction) WriteTransactionToMemory() error {
 
 	err = common.CreateDirIfDoesNotExist("data/transactions")
 	if err != nil {
-		return nil
+		return err
 	}
 
 	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/transactions/transaction_%s.json", transaction.Hash)), json, 0644)
