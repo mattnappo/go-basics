@@ -56,7 +56,7 @@ func PrevBlock(lastBlock block.Block) (*block.Block, error) {
 }
 
 // PopulateChain - Populate a chain with nonsense blocks/txs
-func PopulateChain() (*Blockchain, error) {
+func PopulateChain(chainSize int) (*Blockchain, error) {
 	// Get some (nonsense) transactions
 	txs := createTransactions()
 
@@ -77,7 +77,7 @@ func PopulateChain() (*Blockchain, error) {
 	}
 
 	currentBlock := genesis
-	for i := 0; i < 10; i++ {
+	for i := 0; i < chainSize; i++ {
 		if err != nil {
 			return nil, err
 		}

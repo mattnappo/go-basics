@@ -14,7 +14,7 @@ var (
 func main() {
 	flag.Parse()
 	if *populateFlag {
-		chain, err := blockchain.PopulateChain()
+		chain, err := blockchain.PopulateChain(200)
 		if err != nil {
 			panic(err)
 		}

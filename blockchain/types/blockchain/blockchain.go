@@ -73,6 +73,7 @@ func Validate(thisBlock *block.Block, prevBlock *block.Block) error {
 		return ErrValidatePrevHash
 	}
 
+	storeHash := thisBlock.Hash
 	hashInBlock := fmt.Sprintf("%x", thisBlock.Hash)
 	thisBlock.Hash = nil
 
@@ -80,12 +81,10 @@ func Validate(thisBlock *block.Block, prevBlock *block.Block) error {
 
 	hashOfBlock := fmt.Sprintf("%x", common.Sha3(thisBlock.Bytes()))
 
-	fmt.Println(hashInBlock)
-	fmt.Println(hashOfBlock)
 	if hashInBlock != hashOfBlock {
-
 		return ErrValidateCalcHash
 	}
+	thisBlock.Hash = storeHash
 
 	return nil
 }
