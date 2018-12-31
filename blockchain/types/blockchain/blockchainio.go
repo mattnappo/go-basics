@@ -16,14 +16,14 @@ func (chain *Blockchain) WriteBlockchainToMemory() error {
 		return err
 	}
 
-	err = common.CreateDirIfDoesNotExist("../../data/chains")
+	err = common.CreateDirIfDoesNotExist("data/chains")
 	if err != nil {
 		return err
 	}
 
 	genesis := chain.Blocks[0]
 	hexHash := fmt.Sprintf("%x", genesis.Hash[:8])
-	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("../../data/chains/chain_%s.json", hexHash)), json, 0644)
+	err = ioutil.WriteFile(filepath.FromSlash(fmt.Sprintf("data/chains/chain_%s.json", hexHash)), json, 0644)
 	if err != nil {
 		return err
 	}
@@ -32,7 +32,7 @@ func (chain *Blockchain) WriteBlockchainToMemory() error {
 
 // ReadBlockchainFromMemory - Read a blockchain from memory
 func ReadBlockchainFromMemory(hash string) (*Blockchain, error) {
-	data, err := ioutil.ReadFile(fmt.Sprintf("../../data/chains/chain_%s.json", hash))
+	data, err := ioutil.ReadFile(fmt.Sprintf("data/chains/chain_%s.json", hash))
 	if err != nil {
 		return nil, err
 	}

@@ -9,6 +9,7 @@ import (
 
 var (
 	populateFlag = flag.Bool("populate", false, "Populate a blockchain")
+	// find ./ -type d -name data -exec rm -rf {} \\;
 )
 
 func main() {
@@ -19,6 +20,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(chain.WriteBlockchainToMemory())
+		chain.WriteBlockchainToMemory()
 	}
+
 }
