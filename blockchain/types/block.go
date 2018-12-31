@@ -3,6 +3,7 @@ package types
 import (
 	"encoding/json"
 	"errors"
+	"time"
 
 	"github.com/xoreo/learning/blockchain/common"
 )
@@ -20,29 +21,29 @@ type Block struct {
 }
 
 // NewBlock - Create a new block
-func NewBlock(index int, transactions []*Transaction, prevHash []byte, timestamp string) (*Block, error) {
-	if transactions == nil || prevHash == nil || timestamp == "" {
+func NewBlock(index int, transactions []*Transaction, prevHash []byte) (*Block, error) {
+	if transactions == nil {
 		return nil, ErrInvalidBlock
 	}
 	block := &Block{
 		index,
 		transactions,
 		prevHash,
-		timestamp,
+		time.Now().UTC().String(),
 		nil,
 	}
 	(*block).Hash = common.Sha3(block.Bytes())
 	return block, nil
 }
 
-// Bytes - Encode a block into a []byte
-func (block *Block) Bytes() []byte {
-	json, _ := json.MarshalIndent(*block, "", "  ")
-	return json
-}
-
 // String - Encode a block into a string
 func (block *Block) String() string {
 	json, _ := json.MarshalIndent(*block, "", "  ")
 	return string(json)
+}
+
+// Bytes - Encode a block into a []byte
+func (block *Block) Bytes() []byte {
+	json, _ := json.MarshalIndent(*block, "", "  ")
+	return json
 }
