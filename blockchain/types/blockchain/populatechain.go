@@ -7,11 +7,11 @@ import (
 
 // createTransactions - Create some nonsense txs
 func createTransactions() []*transaction.Transaction {
-	tx1, _ := transaction.NewTransaction(
-		"dowland",
-		"matt",
-		10000000,
-	)
+	// tx1, _ := transaction.NewTransaction(
+	// 	"dowland",
+	// 	"matt",
+	// 	10000000,
+	// )
 
 	tx2, _ := transaction.NewTransaction(
 		"matt",
@@ -19,9 +19,15 @@ func createTransactions() []*transaction.Transaction {
 		0.78,
 	)
 
+	tx3, _ := transaction.NewTransaction(
+		"matt",
+		"mom",
+		200,
+	)
+
 	transactions := []*transaction.Transaction{
-		tx1,
 		tx2,
+		tx3,
 	}
 	return transactions
 }
