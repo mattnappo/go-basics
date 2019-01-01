@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/xoreo/networking/client"
-	"github.com/xoreo/networking/server"
+	"github.com/xoreo/go-basics/networking/client"
+	"github.com/xoreo/go-basics/networking/server"
 )
 
 var (

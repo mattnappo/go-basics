@@ -3,9 +3,16 @@ package common
 import (
 	"os"
 	"path/filepath"
+	"sync"
 
 	"golang.org/x/crypto/sha3"
 )
+
+// Difficulty - Amount of leading zeros needed for POW
+const Difficulty = 1
+
+// Mutex - A mutex for block generation
+var Mutex = &sync.Mutex{}
 
 // Sha3 - Hash input using sha3
 func Sha3(b []byte) []byte {

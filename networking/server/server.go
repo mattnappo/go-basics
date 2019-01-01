@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/xoreo/networking/handler"
+	"github.com/xoreo/go-basics/networking/handler"
 )
 
 // StartServer - Start a server

@@ -15,6 +15,8 @@ var ErrInvalidBlock = errors.New("invalid parameters to construct block")
 // Block - A block in the chain
 type Block struct {
 	Index        int                        `json:"index"`
+	Difficulty   int                        `json:"difficulty"`
+	Nonce        string                     `json:"nonce"`
 	Transactions []*transaction.Transaction `json:"transactions"`
 	PrevHash     []byte                     `json:"prevHash"`
 	Timestamp    string                     `json:"timestamp"`
@@ -28,6 +30,8 @@ func NewBlock(index int, transactions []*transaction.Transaction, prevHash []byt
 	}
 	block := &Block{
 		Index:        index,
+		Difficulty:   common.Difficulty,
+		Nonce:        nonce,
 		Transactions: transactions,
 		PrevHash:     prevHash,
 		Timestamp:    time.Now().UTC().String(),

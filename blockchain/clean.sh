@@ -1,3 +1,4 @@
 #!/bin/bash
 find ./ -type d -name data -exec rm -rf {} \;
-rmdir -p common/test/test
+rmdir common/test/test
+rmdir common/test/

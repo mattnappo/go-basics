@@ -1,6 +1,7 @@
 .DS_STORE
 DS_STORE
 *.DS_STORE
+blockchain/data
 
 # Binaries for programs and plugins
 *.exe
