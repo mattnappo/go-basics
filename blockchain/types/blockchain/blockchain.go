@@ -64,7 +64,7 @@ func (chain *Blockchain) AddBlock(block *block.Block) error {
 }
 
 // Validate - Validate that a block (thisBlock) is valid
-func Validate(thisBlock *block.Block, prevBlock *block.Block) error {
+func Validate(thisBlock, prevBlock *block.Block) error {
 	if thisBlock.Index != prevBlock.Index+1 {
 		return ErrValidateIndex
 	}
@@ -98,4 +98,13 @@ func (chain *Blockchain) ValidateChain() error {
 		}
 	}
 	return nil
+}
+
+// ReplaceLongerChain - Get the longer chain of two chains
+func ReplaceLongerChain(newChain, oldChain *Blockchain) bool {
+	if len(newChain.Blocks) > len(oldChain.Blocks) {
+		oldChain = newChain
+		return true
+	}
+	return false
 }
