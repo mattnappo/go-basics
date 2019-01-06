@@ -26,7 +26,7 @@ func getRandomChain(size int) *Blockchain {
 		transactions,
 		genesis.Hash,
 	)
-	for i := 0; i < size; i++ {
+	for i := 0; i < size-1; i++ {
 		blockchain.AddBlock(newBlock)
 	}
 
@@ -167,17 +167,14 @@ func TestValidateChain(t *testing.T) {
 }
 
 func TestReplaceLongerChain(t *testing.T) {
-	newChain := getRandomChain(10)
+	newChain := getRandomChain(12)
 	fmt.Printf("newChain size: %d\n", len(newChain.Blocks))
 	oldChain := getRandomChain(11)
 	fmt.Printf("oldChain size: %d\n", len(oldChain.Blocks))
-	// replaced := ReplaceLongerChain(newChain, oldChain)
-	_ = ReplaceLongerChain(newChain, oldChain)
-	if len(oldChain.Blocks) == 11 {
+	replaced := ReplaceLongerChain(newChain, oldChain)
+	if replaced {
 		t.Log("success - longer chain replaced")
 	} else {
-		fmt.Printf("newChain size: %d\n", len(newChain.Blocks))
-		fmt.Printf("oldChain size: %d\n", len(oldChain.Blocks))
 		t.Fatal("error - chain not replaced")
 	}
 }

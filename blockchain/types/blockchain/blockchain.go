@@ -101,9 +101,9 @@ func (chain *Blockchain) ValidateChain() error {
 }
 
 // ReplaceLongerChain - Get the longer chain of two chains
-func ReplaceLongerChain(newChain, oldChain *Blockchain) bool {
+func ReplaceLongerChain(newChain *Blockchain, oldChain *Blockchain) bool {
 	if len(newChain.Blocks) > len(oldChain.Blocks) {
-		oldChain = newChain
+		oldChain.Blocks = newChain.Blocks
 		return true
 	}
 	return false
