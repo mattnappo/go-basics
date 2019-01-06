@@ -77,7 +77,7 @@ func Validate(thisBlock, prevBlock *block.Block) error {
 	hashInBlock := fmt.Sprintf("%x", thisBlock.Hash)
 	thisBlock.Hash = nil
 
-	fmt.Println(thisBlock.String())
+	// fmt.Println(thisBlock.String())
 
 	hashOfBlock := fmt.Sprintf("%x", common.Sha3(thisBlock.Bytes()))
 
