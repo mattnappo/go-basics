@@ -19,7 +19,6 @@ func TestWriteBlockchainToMemory(t *testing.T) {
 	t.Log("success")
 }
 
-// func
 func TestReadBlockchainFromMemory(t *testing.T) {
 	chain, err := PopulateChain(10)
 	if err != nil {

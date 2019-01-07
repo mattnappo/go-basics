@@ -8,32 +8,6 @@ import (
 	"github.com/xoreo/go-basics/blockchain/types/transaction"
 )
 
-func getRandomChain(size int) *Blockchain {
-	tx1, _ := transaction.NewTransaction(
-		"dowland",
-		"matt",
-		10000000,
-	)
-	transactions := []*transaction.Transaction{tx1, tx1}
-	genesis, _ := block.NewBlock(
-		0,
-		transactions,
-		nil,
-	)
-	blockchain, _ := NewBlockchain(genesis)
-	newBlock, _ := block.NewBlock(
-		genesis.Index+1,
-		transactions,
-		genesis.Hash,
-	)
-	for i := 0; i < size-1; i++ {
-		blockchain.AddBlock(newBlock)
-	}
-
-	_ = blockchain.ValidateChain()
-	return blockchain
-}
-
 func TestNewBlockchain(t *testing.T) {
 	tx1, err := transaction.NewTransaction(
 		"dowland",
@@ -155,7 +129,7 @@ func TestValidate(t *testing.T) {
 }
 
 func TestValidateChain(t *testing.T) {
-	blockchain := getRandomChain(5)
+	blockchain := common.GetRandomChain(5)
 
 	err := blockchain.ValidateChain()
 	if err != nil {
@@ -163,13 +137,12 @@ func TestValidateChain(t *testing.T) {
 	} else {
 		t.Log("success - valid blockchain")
 	}
-
 }
 
 func TestReplaceLongerChain(t *testing.T) {
-	newChain := getRandomChain(12)
+	newChain := common.GetRandomChain(12)
 	fmt.Printf("newChain size: %d\n", len(newChain.Blocks))
-	oldChain := getRandomChain(11)
+	oldChain := common.GetRandomChain(11)
 	fmt.Printf("oldChain size: %d\n", len(oldChain.Blocks))
 	replaced := ReplaceLongerChain(newChain, oldChain)
 	if replaced {
