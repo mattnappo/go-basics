@@ -11,8 +11,8 @@ import (
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
 )
 
-// ServerChannel - The main channel for the connections
-var ServerChannel chan *blockchain.Blockchain
+// serverChannel - The main channel for the connections
+var serverChannel chan *blockchain.Blockchain
 
 // getGenesis - Get a genesis block
 func getGenesis() *block.Block {
@@ -33,7 +33,8 @@ func InitServer(chain *blockchain.Blockchain) error {
 	if err != nil {
 		return err
 	}
-	ServerChannel <- chain
+	serverChannel <- chain
+	serverChain := chain
 
 	server, err := net.Listen("tcp", ":"+os.Getenv("PORT"))
 	if err != nil {
@@ -45,6 +46,6 @@ func InitServer(chain *blockchain.Blockchain) error {
 		if err != nil {
 			return err
 		}
-		go HandleConnection(conn)
+		go HandleConnection(conn, serverChannel, serverChain)
 	}
 }

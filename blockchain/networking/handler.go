@@ -14,10 +14,9 @@ import (
 )
 
 // HandleConnection - Handle a connection with a client
-func HandleConnection(conn net.Conn, chain chan *blockchain.Blockchain) {
+func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain, chain *blockchain.Blockchain) {
 	defer conn.Close()
 	var txns []*transaction.Transaction
-
 	io.WriteString(conn, "Number of txns to input: ")
 	scanner := bufio.NewScanner(conn)
 	go func() {
@@ -45,12 +44,32 @@ func HandleConnection(conn net.Conn, chain chan *blockchain.Blockchain) {
 				txn, err := transaction.NewTransaction(from, to, f)
 				if err != nil {
 					fmt.Println("error - txn creation error")
+					conn.Close()
 				}
 				txns = append(txns, txn)
 			}
-			blocks := <-chain.Blocks
-			newBlock, err := block.NewBlock()
 
+			newBlock, err := block.NewBlock(
+				chain.Blocks[len(chain.Blocks)-1].Index,
+				txns,
+				chain.Blocks[len(chain.Blocks)-1].Hash,
+			)
+			if err != nil {
+				fmt.Println("error - invalid construction of block")
+				conn.Close()
+			}
+
+			err = blockchain.Validate(newBlock, chain.Blocks[len(chain.Blocks)-1])
+			if err != nil {
+				fmt.Println("error - new block is invalid after checks")
+				conn.Close()
+			}
+			err = chain.AddBlock(newBlock)
+			if err != nil {
+				fmt.Println("error - new block could not be added to the chain")
+				conn.Close()
+			}
+			channel <- chain
 		}
 	}()
 }
