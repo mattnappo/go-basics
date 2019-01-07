@@ -1,18 +1,28 @@
 package networking
 
 import (
+	"io"
 	"net"
 	"os"
-
-	"github.com/xoreo/go-basics/blockchain/types/transaction"
+	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/xoreo/go-basics/blockchain/types/block"
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
+	"github.com/xoreo/go-basics/blockchain/types/transaction"
 )
 
 // serverChannel - The main channel for the connections
 var serverChannel chan *blockchain.Blockchain
+
+// BroadcastChain - Broadcast the chain to the entire network
+func BroadcastChain(conn net.Conn, chain *blockchain.Blockchain) error {
+	for {
+		time.Sleep(30 * time.Second)
+		marshal := chain.String()
+		io.WriteString(conn, marshal)
+	}
+}
 
 // getGenesis - Get a genesis block
 func getGenesis() *block.Block {
@@ -34,7 +44,6 @@ func InitServer(chain *blockchain.Blockchain) error {
 		return err
 	}
 	serverChannel <- chain
-	serverChain := chain
 
 	server, err := net.Listen("tcp", ":"+os.Getenv("PORT"))
 	if err != nil {
@@ -46,6 +55,6 @@ func InitServer(chain *blockchain.Blockchain) error {
 		if err != nil {
 			return err
 		}
-		go HandleConnection(conn, serverChannel, serverChain)
+		go HandleConnection(conn, serverChannel)
 	}
 }
