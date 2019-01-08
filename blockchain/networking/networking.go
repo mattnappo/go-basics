@@ -1,6 +1,7 @@
 package networking
 
 import (
+	"fmt"
 	"io"
 	"net"
 	"os"
@@ -24,8 +25,8 @@ func BroadcastChain(conn net.Conn, chain *blockchain.Blockchain) error {
 	}
 }
 
-// getGenesis - Get a genesis block
-func getGenesis() *block.Block {
+// GetGenesis - Get a genesis block
+func GetGenesis() *block.Block {
 	txns := make([]*transaction.Transaction, 16)
 	prev := make([]byte, 16)
 	genesis, _ := block.NewBlock(0, txns, prev)
@@ -43,7 +44,8 @@ func InitServer(chain *blockchain.Blockchain) error {
 	if err != nil {
 		return err
 	}
-	serverChannel <- chain
+	serverChannel = make(chan *blockchain.Blockchain)
+	// serverChannel <- chain
 
 	server, err := net.Listen("tcp", ":"+os.Getenv("PORT"))
 	if err != nil {
@@ -56,5 +58,7 @@ func InitServer(chain *blockchain.Blockchain) error {
 			return err
 		}
 		go HandleConnection(conn, serverChannel)
+		fmt.Println("after")
+		// Clients are being accepted and this print statement is running
 	}
 }

@@ -4,12 +4,14 @@ import (
 	"flag"
 	"fmt"
 
+	"github.com/xoreo/go-basics/blockchain/networking"
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
 )
 
 var (
 	populateFlag = flag.Int("populate", 0, "Populate a blockchain with x blocks")
 	loadFlag     = flag.String("load", "", "Load and validate a blockchain from memory")
+	generateFlag = flag.Bool("generate", false, "Generate a new block onto the chain")
 )
 
 func main() {
@@ -34,6 +36,18 @@ func main() {
 			panic(err)
 		}
 		// fmt.Println(chain)
+	}
+	if *generateFlag {
+		genesis := networking.GetGenesis()
+		chain, err := blockchain.NewBlockchain(genesis)
+		if err != nil {
+			panic(err)
+		}
+		err = networking.InitServer(chain)
+		if err != nil {
+			panic(err)
+		}
+
 	}
 
 }
