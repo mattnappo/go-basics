@@ -2,7 +2,7 @@
 DS_STORE
 *.DS_STORE
 blockchain/data
-
+data
 # Binaries for programs and plugins
 *.exe
 *.exe~
