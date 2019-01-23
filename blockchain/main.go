@@ -19,7 +19,7 @@ var (
 func main() {
 	flag.Parse()
 	if *populateFlag > 0 {
-		fmt.Printf("populate flag")
+		fmt.Println("populate flag")
 		chain, err := blockchain.PopulateChain(*populateFlag)
 		if err != nil {
 			panic(err)
@@ -28,7 +28,7 @@ func main() {
 	}
 
 	if *loadFlag != "" {
-		fmt.Printf("load flag")
+		fmt.Println("load flag")
 		// name := fmt.Sprintf("data/chains/chain_%s.json", *loadFlag)
 		chain, err := blockchain.ReadBlockchainFromMemory(*loadFlag)
 		if err != nil {
@@ -41,7 +41,7 @@ func main() {
 	}
 
 	if *serverFlag != "" {
-		fmt.Printf("server flag")
+		fmt.Println("server flag")
 		genesis := networking.GetGenesis()
 		chain, err := blockchain.NewBlockchain(genesis)
 		if err != nil {
@@ -55,7 +55,7 @@ func main() {
 	}
 
 	if *clientFlag != "" {
-		fmt.Printf("client flag")
+		fmt.Println("client flag")
 		params := strings.Split(*clientFlag, ":")
 		ip, port := params[0], params[1]
 		fmt.Println("ip: " + ip + "\nport: " + port)
