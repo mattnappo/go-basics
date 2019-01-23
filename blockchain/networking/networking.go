@@ -40,9 +40,11 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 	if err != nil {
 		return err
 	}
-	serverChannel = make(chan *blockchain.Blockchain)
+	// serverChannel = make(chan *blockchain.Blockchain)
+	serverChannel <- chain
 
-	// serverChannel <- chain
+	// temp := <-serverChannel
+	// temp.WriteBlockchainToMemory()
 
 	server, err := net.Listen("tcp", ":"+port)
 	if err != nil {
@@ -52,12 +54,10 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 	defer server.Close()
 	for {
 		conn, err := server.Accept()
-		fmt.Println("accepted!")
 		if err != nil {
 			return err
 		}
 		go HandleConnection(conn, serverChannel)
-		fmt.Println("after")
 		// Clients are being accepted and this print statement is running
 	}
 }
@@ -65,7 +65,9 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 // InitClient - Initialize a client connection
 func InitClient(addr string, port string) error {
 	// Connect to the server
+	fmt.Println("before dial")
 	conn, err := net.Dial("tcp", addr+":"+port)
+	fmt.Println("after dial")
 	if err != nil {
 		return err
 	}

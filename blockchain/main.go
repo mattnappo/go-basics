@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"strings"
 
 	"github.com/xoreo/go-basics/blockchain/networking"
@@ -19,7 +18,7 @@ var (
 func main() {
 	flag.Parse()
 	if *populateFlag > 0 {
-		fmt.Println("populate flag")
+		// fmt.Println("populate flag")
 		chain, err := blockchain.PopulateChain(*populateFlag)
 		if err != nil {
 			panic(err)
@@ -28,7 +27,7 @@ func main() {
 	}
 
 	if *loadFlag != "" {
-		fmt.Println("load flag")
+		// fmt.Println("load flag")
 		// name := fmt.Sprintf("data/chains/chain_%s.json", *loadFlag)
 		chain, err := blockchain.ReadBlockchainFromMemory(*loadFlag)
 		if err != nil {
@@ -41,7 +40,7 @@ func main() {
 	}
 
 	if *serverFlag != "" {
-		fmt.Println("server flag")
+		// fmt.Println("server flag")
 		genesis := networking.GetGenesis()
 		chain, err := blockchain.NewBlockchain(genesis)
 		if err != nil {
@@ -55,10 +54,9 @@ func main() {
 	}
 
 	if *clientFlag != "" {
-		fmt.Println("client flag")
+		// fmt.Println("client flag")
 		params := strings.Split(*clientFlag, ":")
 		ip, port := params[0], params[1]
-		fmt.Println("ip: " + ip + "\nport: " + port)
 		err := networking.InitClient(ip, port)
 		if err != nil {
 			panic(err)

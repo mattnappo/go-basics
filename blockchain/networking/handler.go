@@ -1,39 +1,34 @@
 package networking
 
 import (
-	"fmt"
+	"encoding/json"
 	"net"
 
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
+	"github.com/xoreo/go-basics/blockchain/types/transaction"
 )
 
 // HandleConnection - Handle a connection with a client
-func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) {
+func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) error {
 	defer conn.Close()
 	// cChain := <-channel
-	// txns := nil
+
 	// Wait for the client to send their transactions
-	buffer := make([]byte, 1000)
+
+	txns := []*transaction.Transaction{}
+	buffer := make([]byte, 1000000) // 1 KiB
 	for {
 		size, err := conn.Read(buffer) // Read into buffer
-		if err == nil && size > 0 {    // Check for errors
-			fmt.Printf("\ntyped: %s\n", string(buffer))
+		if err != nil || size <= 0 {
+			return err
+		}
 
-			// data, err := ioutil.ReadFile(fmt.Sprintf("data/blocks/block_%s.json", hash))
-			// if err != nil {
-			// 	return nil, err
-			// }
-			// buffer := &Block{}
-			// err = json.Unmarshal(data, buffer)
-			// if err != nil {
-			// 	return nil, err
-			// }
-			// return buffer, nil
-
-			// txns = buffer
-			// break
+		err = json.Unmarshal(buffer, txns) // Unmarshal the bytes into a slice of transaction pointers
+		if err != nil {
+			return err
 		}
 		buffer = nil
+		break
 	}
 
 	// newBlock, err := block.NewBlock(
@@ -42,9 +37,11 @@ func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) {
 	// 	cChain.Blocks[len(cChain.Blocks)-1].Hash,
 	// )
 	// if err != nil {
-	// 	fmt.Println("error - invalid construction of block")
-	// 	conn.Close()
+	// 	return err
 	// }
+
+	// fmt.Println(newBlock.String())
+	return nil
 
 	// err = blockchain.Validate(newBlock, cChain.Blocks[len(cChain.Blocks)-1])
 	// if err != nil {
