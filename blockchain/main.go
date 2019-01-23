@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/xoreo/go-basics/blockchain/common/util"
 	"github.com/xoreo/go-basics/blockchain/networking"
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
 )
@@ -18,14 +17,6 @@ var (
 )
 
 func main() {
-	txns, err := util.GetClientTxns()
-	if err != nil {
-		panic(err)
-	}
-	for _, txn := range txns {
-		fmt.Print(txn.String())
-	}
-
 	flag.Parse()
 	if *populateFlag > 0 {
 		fmt.Printf("populate flag")
@@ -35,6 +26,7 @@ func main() {
 		}
 		chain.WriteBlockchainToMemory()
 	}
+
 	if *loadFlag != "" {
 		fmt.Printf("load flag")
 		// name := fmt.Sprintf("data/chains/chain_%s.json", *loadFlag)
@@ -46,7 +38,6 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		// fmt.Println(chain)
 	}
 
 	if *serverFlag != "" {
@@ -61,7 +52,6 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-
 	}
 
 	if *clientFlag != "" {

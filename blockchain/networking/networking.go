@@ -1,10 +1,12 @@
 package networking
 
 import (
+	"encoding/json"
 	"fmt"
 	"net"
 	"time"
 
+	"github.com/xoreo/go-basics/blockchain/common/util"
 	"github.com/xoreo/go-basics/blockchain/types/block"
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
 	"github.com/xoreo/go-basics/blockchain/types/transaction"
@@ -62,10 +64,24 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 
 // InitClient - Initialize a client connection
 func InitClient(addr string, port string) error {
-	_, err := net.Dial("tcp", addr+":"+port)
-	fmt.Printf("connected to server node ")
+	// Connect to the server
+	conn, err := net.Dial("tcp", addr+":"+port)
 	if err != nil {
 		return err
 	}
+	fmt.Println("connected to server node ")
+
+	// Get transactions
+	txns, err := util.GetClientTxns()
+	if err != nil {
+		return err
+	}
+	for _, txn := range txns {
+		fmt.Print(txn.String())
+	}
+
+	// Write transactions to server
+	bytes, _ := json.MarshalIndent(txns, "", "  ")
+	conn.Write(bytes)
 	return nil
 }
