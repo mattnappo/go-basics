@@ -23,6 +23,7 @@ func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) {
 	io.WriteString(conn, "Number of txns to input: ")
 	scanner := bufio.NewScanner(conn)
 	go func() {
+		fmt.Println("hi")
 		for scanner.Scan() {
 			txnCount, err := strconv.Atoi(scanner.Text())
 			if err != nil {

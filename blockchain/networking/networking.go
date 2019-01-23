@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"io"
 	"net"
-	"os"
 	"time"
 
-	"github.com/joho/godotenv"
 	"github.com/xoreo/go-basics/blockchain/types/block"
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
 	"github.com/xoreo/go-basics/blockchain/types/transaction"
@@ -34,25 +32,23 @@ func GetGenesis() *block.Block {
 }
 
 // InitServer - Initialize a blockchain server
-func InitServer(chain *blockchain.Blockchain) error {
-	err := godotenv.Load()
-	if err != nil {
-		return err
-	}
-
-	err = chain.ValidateChain()
+func InitServer(port string, chain *blockchain.Blockchain) error {
+	err := chain.ValidateChain()
 	if err != nil {
 		return err
 	}
 	serverChannel = make(chan *blockchain.Blockchain)
+
 	// serverChannel <- chain
 
-	server, err := net.Listen("tcp", ":"+os.Getenv("PORT"))
+	server, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		return err
 	}
+
 	defer server.Close()
 	for {
+		fmt.Println("made chan")
 		conn, err := server.Accept()
 		if err != nil {
 			return err
@@ -61,4 +57,16 @@ func InitServer(chain *blockchain.Blockchain) error {
 		fmt.Println("after")
 		// Clients are being accepted and this print statement is running
 	}
+}
+
+// InitClient - Initialize a client connection
+func InitClient(addr string, port string) error {
+
+	conn, err := net.Dial("tcp", addr+":"+port)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
+	// status, err := bufio.NewReader(conn).ReadString('\n')
+	return nil
 }
