@@ -43,9 +43,6 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 	serverChannel := make(chan *blockchain.Blockchain, 1)
 	serverChannel <- chain
 
-	// temp := <-serverChannel
-	// temp.WriteBlockchainToMemory()
-
 	server, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		return err
@@ -65,9 +62,7 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 // InitClient - Initialize a client connection
 func InitClient(addr string, port string) error {
 	// Connect to the server
-	fmt.Println("before dial")
 	conn, err := net.Dial("tcp", addr+":"+port)
-	fmt.Println("after dial")
 	if err != nil {
 		return err
 	}
