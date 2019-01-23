@@ -2,6 +2,7 @@ package networking
 
 import (
 	"encoding/json"
+	"fmt"
 	"net"
 
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
@@ -11,8 +12,10 @@ import (
 // HandleConnection - Handle a connection with a client
 func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) error {
 	defer conn.Close()
-	// cChain := <-channel
-
+	cChain := <-channel
+	fmt.Println("cCHAIN cCHAIN cCHAIN cCHAIN cCHAIN:")
+	fmt.Println(cChain)
+	fmt.Println("END END END END END END END END END")
 	// Wait for the client to send their transactions
 
 	txns := []*transaction.Transaction{}

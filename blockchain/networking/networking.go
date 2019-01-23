@@ -13,7 +13,7 @@ import (
 )
 
 // serverChannel - The main channel for the connections
-var serverChannel chan *blockchain.Blockchain
+// var serverChannel chan *blockchain.Blockchain
 
 // BroadcastChain - Broadcast the chain to the entire network
 func BroadcastChain(conn net.Conn, chain *blockchain.Blockchain) error {
@@ -40,7 +40,7 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 	if err != nil {
 		return err
 	}
-	// serverChannel = make(chan *blockchain.Blockchain)
+	serverChannel := make(chan *blockchain.Blockchain, 1)
 	serverChannel <- chain
 
 	// temp := <-serverChannel

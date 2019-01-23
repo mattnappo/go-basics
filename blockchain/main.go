@@ -16,6 +16,8 @@ var (
 )
 
 func main() {
+	networking.TestChans()
+
 	flag.Parse()
 	if *populateFlag > 0 {
 		// fmt.Println("populate flag")
