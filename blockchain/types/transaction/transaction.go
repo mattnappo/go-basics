@@ -16,6 +16,7 @@ type Transaction struct {
 	Recipient string  `json:"recipient"`
 	Amount    float64 `json:"amount"`
 	Hash      []byte  `json:"hash"`
+	Nonce     []byte  `json:"nonce"`
 }
 
 // NewTransaction - Create a new transaction
@@ -29,6 +30,7 @@ func NewTransaction(sender string, recipient string, amount float64) (*Transacti
 		Recipient: recipient,
 		Amount:    amount,
 		Hash:      nil,
+		Nonce:     common.GetNonce(50),
 	}
 	(*transaction).Hash = common.Sha3(transaction.Bytes())
 	return transaction, nil
