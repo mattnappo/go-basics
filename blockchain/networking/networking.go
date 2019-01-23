@@ -2,7 +2,6 @@ package networking
 
 import (
 	"fmt"
-	"io"
 	"net"
 	"time"
 
@@ -18,8 +17,10 @@ var serverChannel chan *blockchain.Blockchain
 func BroadcastChain(conn net.Conn, chain *blockchain.Blockchain) error {
 	for {
 		time.Sleep(30 * time.Second)
-		marshal := chain.String()
-		io.WriteString(conn, marshal)
+		conn.Write(chain.Bytes())
+		// OR (doesn't matter)
+		// marshal := chain.String()
+		// io.WriteString(conn, marshal)
 	}
 }
 
@@ -48,8 +49,8 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 
 	defer server.Close()
 	for {
-		fmt.Println("made chan")
 		conn, err := server.Accept()
+		fmt.Println("accepted!")
 		if err != nil {
 			return err
 		}
@@ -61,12 +62,10 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 
 // InitClient - Initialize a client connection
 func InitClient(addr string, port string) error {
-
-	conn, err := net.Dial("tcp", addr+":"+port)
+	_, err := net.Dial("tcp", addr+":"+port)
+	fmt.Printf("connected to server node ")
 	if err != nil {
 		return err
 	}
-	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
-	// status, err := bufio.NewReader(conn).ReadString('\n')
 	return nil
 }
