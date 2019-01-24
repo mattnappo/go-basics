@@ -2,8 +2,10 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"strings"
 
+	"github.com/xoreo/go-basics/blockchain/common/util"
 	"github.com/xoreo/go-basics/blockchain/networking"
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
 )
@@ -14,6 +16,22 @@ var (
 	serverFlag   = flag.String("server", "", "Start a server to host client connections")
 	clientFlag   = flag.String("client", "", "Start a client to add blocks to the chain")
 )
+
+func testingchans() {
+
+	// make(chan, int)
+	// var myChan chan *blockchain.Blockchain
+	myChan := make(chan *blockchain.Blockchain, 1)
+	chain := util.GetRandomChain(2)
+	myChan <- chain
+
+	tempChain := <-myChan
+	fmt.Println(tempChain.String())
+}
+
+func testing() {
+
+}
 
 func main() {
 	// networking.TestChans()
