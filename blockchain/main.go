@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"strings"
@@ -29,12 +30,39 @@ func testingchans() {
 	fmt.Println(tempChain.String())
 }
 
-func testing() {
+func testingunmarshal() error {
+	// txns, err := util.GetClientTxns()
+	// if err != nil {
+	// 	return err
+	// }
+	// data, err := json.MarshalIndent(&txns, "", "  ")
+	// if err != nil {
+	// 	return err
+	// }
+	// fmt.Println(string(data))
+	// // empty := make([]*transaction.Transaction, 20)
+	// // raw := json.Unmarshal(data, empty)
+	// // fmt.Println(raw)
 
+	ints := []int{10, 20, 30, 40, 50}
+	marshalled, err := json.MarshalIndent(ints, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(string(marshalled))
+
+	buffer := &[]int{}
+	err = json.Unmarshal(marshalled, buffer)
+	return nil
 }
 
 func main() {
-	// networking.TestChans()
+	// testingchans()
+	// err := testingunmarshal()
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	flag.Parse()
 	if *populateFlag > 0 {
