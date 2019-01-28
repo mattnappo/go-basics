@@ -59,10 +59,10 @@ func testingunmarshal() error {
 
 func main() {
 	// testingchans()
-	// err := testingunmarshal()
-	// if err != nil {
-	// 	panic(err)
-	// }
+	err := testingunmarshal()
+	if err != nil {
+		panic(err)
+	}
 
 	flag.Parse()
 	if *populateFlag > 0 {
