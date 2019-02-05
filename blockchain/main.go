@@ -1,3 +1,14 @@
+/*
+	NOTES
+	Newlines are different characters on windows, so the current input system will not work.
+	Should eventually move to json for the new block/txn inputs
+
+	TODO
+	1.) Finish basic networking
+
+	2.) be done and move on to some other projects, always keeping this one in mind (for future expansion?)...
+*/
+
 package main
 
 import (

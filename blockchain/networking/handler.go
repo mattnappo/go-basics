@@ -45,6 +45,7 @@ func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) error 
 		txnsBuffer,
 		cChain.Blocks[len(cChain.Blocks)-1].Hash,
 	)
+	
 	if err != nil {
 		return err
 	}
