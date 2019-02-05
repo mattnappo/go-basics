@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
 	"strings"
@@ -44,17 +43,20 @@ func testingunmarshal() error {
 	// // raw := json.Unmarshal(data, empty)
 	// // fmt.Println(raw)
 
-	ints := []int{10, 20, 30, 40, 50}
-	marshalled, err := json.MarshalIndent(ints, "", "  ")
-	if err != nil {
-		return err
-	}
+	/*
+		// THIS CODE WORKS
+		ints := []int{10, 20, 30, 40, 50}
+		marshalled, err := json.MarshalIndent(ints, "", "  ")
+		if err != nil {
+			return err
+		}
 
-	fmt.Println(string(marshalled))
+		fmt.Println(string(marshalled))
 
-	buffer := &[]int{}
-	err = json.Unmarshal(marshalled, buffer)
-	return nil
+		buffer := &[]int{}
+		err = json.Unmarshal(marshalled, buffer)
+		return nil
+	*/
 }
 
 func main() {

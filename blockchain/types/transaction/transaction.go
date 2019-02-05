@@ -48,8 +48,8 @@ func (transaction *Transaction) Bytes() []byte {
 	return json
 }
 
-// TransactionFromBytes - Create a transaction from a []byt
-func TransactionFromBytes(b []byte) (*Transaction, error) {
+// FromBytes - Create a transaction from a []byte
+func FromBytes(b []byte) (*Transaction, error) {
 	buffer := &Transaction{}
 	err := json.Unmarshal(b, buffer)
 	if err != nil {
