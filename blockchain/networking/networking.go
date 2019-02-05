@@ -47,7 +47,7 @@ func InitServer(port string, chain *blockchain.Blockchain) error {
 	if err != nil {
 		return err
 	}
-
+	fmt.Println("server initialized")
 	defer server.Close()
 	for {
 		conn, err := server.Accept()
@@ -79,6 +79,8 @@ func InitClient(addr string, port string) error {
 
 	// Write transactions to server
 	bytes, _ := json.MarshalIndent(txns, "", "  ")
+	// Write to file for testing purposes
+	// err = ioutil.WriteFile("save.json", bytes, 0644)
 	conn.Write(bytes)
 	return nil
 }

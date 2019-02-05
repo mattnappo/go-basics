@@ -5,7 +5,7 @@
 
 	TODO
 	1.) Finish basic networking
-
+	2.) Add transactions validation
 	2.) be done and move on to some other projects, always keeping this one in mind (for future expansion?)...
 */
 

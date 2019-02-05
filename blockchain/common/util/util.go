@@ -71,6 +71,12 @@ func GetClientTxns() ([]*transaction.Transaction, error) {
 		if err != nil {
 			return nil, err
 		}
+
+		// If any of the inputs are empty, return error
+		if to == "" || from == "" || amount == 0.0 {
+			return nil, err
+		}
+
 		txn, err := transaction.NewTransaction(from, to, amount)
 		if err != nil {
 			return nil, err
