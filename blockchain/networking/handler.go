@@ -31,11 +31,11 @@ func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) error 
 		// Unmarshal the data
 		err = json.Unmarshal(readBuffer, txnsBuffer) // Unmarshal the bytes into a slice of transaction pointers
 		if err != nil {
-			fmt.Println("bad")
+			fmt.Println("unmarshal error throwing")
 			fmt.Println(err)
 			return err
 		}
-		fmt.Println("hello world!")
+		fmt.Println("txn buffer: ")
 		fmt.Println(txnsBuffer)
 		break
 	}

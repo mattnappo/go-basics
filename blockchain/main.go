@@ -1,11 +1,12 @@
 package main
 
 import (
+	"github.com/xoreo/go-basics/blockchain/types/transaction"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"strings"
 
-	"github.com/xoreo/go-basics/blockchain/common/util"
 	"github.com/xoreo/go-basics/blockchain/networking"
 	"github.com/xoreo/go-basics/blockchain/types/blockchain"
 )
@@ -17,54 +18,21 @@ var (
 	clientFlag   = flag.String("client", "", "Start a client to add blocks to the chain")
 )
 
-func testingchans() {
-
-	// make(chan, int)
-	// var myChan chan *blockchain.Blockchain
-	myChan := make(chan *blockchain.Blockchain, 1)
-	chain := util.GetRandomChain(2)
-	myChan <- chain
-
-	tempChain := <-myChan
-	fmt.Println(tempChain.String())
-}
-
-func testingunmarshal() error {
-	// txns, err := util.GetClientTxns()
-	// if err != nil {
-	// 	return err
-	// }
-	// data, err := json.MarshalIndent(&txns, "", "  ")
-	// if err != nil {
-	// 	return err
-	// }
-	// fmt.Println(string(data))
-	// // empty := make([]*transaction.Transaction, 20)
-	// // raw := json.Unmarshal(data, empty)
-	// // fmt.Println(raw)
-
-	/*
-		// THIS CODE WORKS
-		ints := []int{10, 20, 30, 40, 50}
-		marshalled, err := json.MarshalIndent(ints, "", "  ")
-		if err != nil {
-			return err
-		}
-
-		fmt.Println(string(marshalled))
-
-		buffer := &[]int{}
-		err = json.Unmarshal(marshalled, buffer)
-		return nil
-	*/
-}
 
 func main() {
 	// testingchans()
-	err := testingunmarshal()
+	raw, err := Getraw()
 	if err != nil {
 		panic(err)
 	}
+
+	buffer := []*transaction.Transaction{}
+	err = json.Unmarshal([]byte(raw), buffer)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(buffer)
+
 
 	flag.Parse()
 	if *populateFlag > 0 {
