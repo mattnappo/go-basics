@@ -36,7 +36,6 @@ func Getraw() (string, error) {
 			return "", err
 		}
 		txns = append(txns, txn)
-
 	}
 
 	marshalled, err := json.MarshalIndent(txns, "", "  ")

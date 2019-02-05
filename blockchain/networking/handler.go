@@ -18,7 +18,7 @@ func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) error 
 	// Wait for the client to send their transactions
 
 	readBuffer := make([]byte, 1000000)         // 1 KiB
-	txnsBuffer := &[]*transaction.Transaction{} // Transaction buffer for deserialization
+	txnsBuffer := []*transaction.Transaction{} // Transaction buffer for deserialization
 	for {
 		size, err := conn.Read(readBuffer) // Read into buffer
 		// fmt.Println(string(buffer))
@@ -29,7 +29,7 @@ func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) error 
 		fmt.Println(string(readBuffer))
 
 		// Unmarshal the data
-		err = json.Unmarshal(readBuffer, txnsBuffer) // Unmarshal the bytes into a slice of transaction pointers
+		err = json.Unmarshal(readBuffer, &txnsBuffer) // Unmarshal the bytes into a slice of transaction pointers
 		if err != nil {
 			fmt.Println("unmarshal error throwing")
 			fmt.Println(err)
@@ -42,7 +42,7 @@ func HandleConnection(conn net.Conn, channel chan *blockchain.Blockchain) error 
 
 	newBlock, err := block.NewBlock(
 		cChain.Blocks[len(cChain.Blocks)-1].Index,
-		*txnsBuffer,
+		txnsBuffer,
 		cChain.Blocks[len(cChain.Blocks)-1].Hash,
 	)
 	if err != nil {

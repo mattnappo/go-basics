@@ -27,7 +27,7 @@ func main() {
 	}
 
 	buffer := []*transaction.Transaction{}
-	err = json.Unmarshal([]byte(raw), buffer)
+	err = json.Unmarshal([]byte(raw), &buffer)
 	if err != nil {
 		panic(err)
 	}
