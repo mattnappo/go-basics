@@ -1,10 +1,8 @@
 package main
 
 import (
-	"github.com/xoreo/go-basics/blockchain/types/transaction"
-	"encoding/json"
 	"flag"
-	"fmt"
+	// "fmt"
 	"strings"
 
 	"github.com/xoreo/go-basics/blockchain/networking"
@@ -18,21 +16,8 @@ var (
 	clientFlag   = flag.String("client", "", "Start a client to add blocks to the chain")
 )
 
-
 func main() {
-	// testingchans()
-	raw, err := Getraw()
-	if err != nil {
-		panic(err)
-	}
-
-	buffer := []*transaction.Transaction{}
-	err = json.Unmarshal([]byte(raw), &buffer)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(buffer)
-
+	// TestStuff()
 
 	flag.Parse()
 	if *populateFlag > 0 {

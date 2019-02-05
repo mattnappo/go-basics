@@ -9,8 +9,8 @@ import (
 	"github.com/xoreo/go-basics/blockchain/common/util"
 )
 
-// Testingchans - test some chans
-func Testingchans() {
+// testingchans - test some chans
+func testingchans() {
 
 	// make(chan, int)
 	// var myChan chan *blockchain.Blockchain
@@ -22,8 +22,8 @@ func Testingchans() {
 	fmt.Println(tempChain.String())
 }
 
-// Getraw - get raw
-func Getraw() (string, error) {
+// getraw - get raw
+func getraw() (string, error) {
 	// Make a slice of transaction pointers
 	txns := []*transaction.Transaction{}
 	for i := 1; i < 5; i++ {
@@ -44,4 +44,21 @@ func Getraw() (string, error) {
 	}
 
 	return string(marshalled), nil
+}
+
+// TestStuff - test some channels and unmarshaling!
+func TestStuff() error {
+	// testingchans()
+	raw, err := getraw()
+	if err != nil {
+		return err
+	}
+
+	buffer := []*transaction.Transaction{}
+	err = json.Unmarshal([]byte(raw), &buffer)
+	if err != nil {
+		return err
+	}
+	fmt.Println(buffer)
+	return nil
 }
